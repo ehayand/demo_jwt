@@ -3,7 +3,6 @@ package com.example.jwt2.security.provider;
 import com.example.jwt2.domain.Account;
 import com.example.jwt2.domain.AccountRepository;
 import com.example.jwt2.security.AccountContext;
-import com.example.jwt2.security.AccountContextService;
 import com.example.jwt2.security.token.PostAuthorizationToken;
 import com.example.jwt2.security.token.PreAuthorizationToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class FormLoginAuthenticationProvider implements AuthenticationProvider {
         Account account = accountRepository.findByUserId(userName).orElseThrow(() -> new NoSuchElementException("정보에 맞는 계정이 없습니다."));
 
         if(isCorrectPassword(password, account)){
-            return PostAuthorizationToken.getTokenFromAccounContext(AccountContext.fromAccountModel(account));
+            return PostAuthorizationToken.getTokenFromAccountContext(AccountContext.fromAccountModel(account));
         }
 
         throw new NoSuchElementException("인증 정보가 정확하지 않습니다.");
